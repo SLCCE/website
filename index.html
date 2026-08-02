@@ -4,890 +4,155 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SLCCE — Students Leading Collaborative Computing Education</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* ===================== RESET & BASE ===================== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: 64px; font-size: 15px; }
-body {
-  font-family: 'Poppins', sans-serif;
-  background: #FFF8EC;
-  color: #044055;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; display: block; }
-
-/* ===================== CSS VARIABLES ===================== */
-:root {
-  --cream: #FFF8EC;
-  --gold: #FDB620;
-  --pink: #CF2358;
-  --teal: #0A9193;
-  --blue: #087F93;
-  --navy: #044055;
-  --white: #ffffff;
-  --shadow: 0 2px 16px rgba(4, 64, 85, 0.07);
-  --shadow-lg: 0 8px 32px rgba(4, 64, 85, 0.10);
-  --radius: 12px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ===================== UTILITY ===================== */
-.container { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
-.section { padding: 72px 0; }
-.section-label {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--teal); margin-bottom: 12px;
-}
-.section-label::before {
-  content: ''; width: 24px; height: 2px; background: var(--teal); border-radius: 2px;
-}
-.section-title {
-  font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 700; color: var(--navy);
-  line-height: 1.25; margin-bottom: 14px;
-}
-.section-subtitle {
-  font-size: 0.92rem; color: #5a7a8a; max-width: 560px; line-height: 1.7;
-}
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 26px; border-radius: 50px; font-family: 'Poppins', sans-serif;
-  font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer;
-  transition: var(--transition); text-decoration: none;
-}
-.btn-primary { background: var(--teal); color: var(--white); }
-.btn-primary:hover { background: var(--navy); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-.btn-outline { background: transparent; color: var(--teal); border: 2px solid var(--teal); }
-.btn-outline:hover { background: var(--teal); color: var(--white); }
-.btn-gold { background: var(--gold); color: var(--navy); }
-.btn-gold:hover { background: #e5a41c; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-
-/* ===================== NAVBAR ===================== */
-.navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: rgba(255, 248, 236, 0.92); backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(4, 64, 85, 0.06);
-}
-.navbar-inner {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 24px; max-width: 1060px; margin: 0 auto;
-}
-.navbar-logo { display: flex; align-items: center; gap: 10px; }
-.navbar-logo img { height: 36px; width: auto; }
-.navbar-logo span { font-weight: 700; font-size: 1.1rem; color: var(--navy); }
-.nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
-.nav-links a {
-  font-size: 0.82rem; font-weight: 500; color: var(--navy); opacity: 0.65;
-  transition: var(--transition); position: relative;
-}
-.nav-links a:hover { opacity: 1; }
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 2px;
-  background: var(--teal); transition: var(--transition);
-}
-.nav-links a:hover::after { width: 100%; }
-.nav-cta { display: flex; gap: 10px; align-items: center; }
-.nav-cta .btn { padding: 8px 20px; font-size: 0.8rem; }
-.mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
-.mobile-toggle svg { width: 22px; height: 22px; color: var(--navy); }
-
-/* ===================== HERO ===================== */
-.hero {
-  min-height: 100vh; display: flex; align-items: center; position: relative;
-  padding: 100px 0 80px; overflow: hidden;
-  background: linear-gradient(135deg, var(--cream) 0%, #f0ede4 50%, #e8f4f4 100%);
-}
-.hero-bg-shape {
-  position: absolute; top: -20%; right: -10%; width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(10,145,147,0.06) 0%, transparent 70%);
-  border-radius: 50%; pointer-events: none;
-}
-.hero-bg-shape-2 {
-  position: absolute; bottom: -10%; left: -5%; width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(253,182,32,0.06) 0%, transparent 70%);
-  border-radius: 50%; pointer-events: none;
-}
-.hero-inner {
-  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center;
-  position: relative; z-index: 2;
-}
-.hero-content h1 {
-  font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; line-height: 1.1;
-  color: var(--navy); margin-bottom: 20px;
-}
-.hero-content h1 .highlight {
-  background: linear-gradient(135deg, var(--teal), var(--blue));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero-content p {
-  font-size: 0.95rem; color: #5a7a8a; line-height: 1.8; margin-bottom: 28px; max-width: 520px;
-}
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-.hero-stats {
-  display: flex; gap: 36px; margin-top: 36px; padding-top: 24px;
-  border-top: 1px solid rgba(4, 64, 85, 0.08);
-}
-.hero-stat-number { font-size: 1.7rem; font-weight: 700; color: var(--teal); line-height: 1; }
-.hero-stat-label { font-size: 0.72rem; color: #5a7a8a; margin-top: 2px; }
-.hero-visual { display: flex; justify-content: center; align-items: center; }
-.hero-logo-img {
-  width: 320px; height: auto;
-  animation: float 4s ease-in-out infinite;
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* ===================== ABOUT ===================== */
-.about { background: var(--white); }
-.about-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start;
-}
-.about-cards { display: flex; flex-direction: column; gap: 14px; }
-.about-card {
-  padding: 22px; border-radius: var(--radius); background: var(--cream);
-  border: 1px solid rgba(4, 64, 85, 0.05); transition: var(--transition);
-}
-.about-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-.about-card-icon {
-  width: 40px; height: 40px; border-radius: 10px; display: flex;
-  align-items: center; justify-content: center; margin-bottom: 12px;
-}
-.about-card h3 { font-size: 0.92rem; font-weight: 600; margin-bottom: 6px; }
-.about-card p { font-size: 0.82rem; color: #5a7a8a; line-height: 1.6; }
-
-/* ===================== EVENTS ===================== */
-.events { background: var(--cream); }
-.events-header { text-align: center; margin-bottom: 44px; }
-.events-header .section-subtitle { margin: 0 auto; }
-.events-timeline { max-width: 700px; margin: 0 auto; position: relative; }
-.events-timeline::before {
-  content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px;
-  background: linear-gradient(to bottom, var(--teal), var(--gold), var(--pink));
-  border-radius: 2px;
-}
-.event-item {
-  display: flex; gap: 32px; margin-bottom: 24px; position: relative; padding-left: 54px;
-}
-.event-dot {
-  position: absolute; left: 11px; top: 20px; width: 20px; height: 20px;
-  border-radius: 50%; border: 3px solid var(--cream); box-shadow: 0 0 0 2px var(--teal);
-  background: var(--teal); z-index: 2;
-}
-.event-item:nth-child(2) .event-dot { background: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
-.event-item:nth-child(3) .event-dot { background: var(--pink); box-shadow: 0 0 0 2px var(--pink); }
-.event-item:nth-child(4) .event-dot { background: var(--navy); box-shadow: 0 0 0 2px var(--navy); }
-.event-card {
-  flex: 1; background: var(--white); padding: 22px 26px; border-radius: var(--radius);
-  box-shadow: var(--shadow); transition: var(--transition);
-}
-.event-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-.event-date {
-  font-size: 0.68rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
-  color: var(--teal); margin-bottom: 6px;
-}
-.event-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
-.event-students {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 0.78rem; color: #5a7a8a; background: var(--cream);
-  padding: 3px 10px; border-radius: 20px;
-}
-
-/* ===================== GALLERY ===================== */
-.gallery { background: var(--white); }
-.gallery-header { text-align: center; margin-bottom: 44px; }
-.gallery-placeholder {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
-  max-width: 900px; margin: 0 auto;
-}
-.gallery-item {
-  position: relative;
-  aspect-ratio: 1;
-  border-radius: var(--radius);
-  overflow: hidden;
-  cursor: pointer;
-  border: none;              
-  background: none;          
-  display: block;            
-}
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;   
-  display: block;
-  transition: transform 0.4s ease;
-}
-.gallery-item:hover img {
-  transform: scale(1.05);
-}
-.gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
-.gallery-item:hover { border-color: var(--teal); background: #e0f0f0; }
-.gallery-item-inner { text-align: center; color: var(--teal); opacity: 0.5; padding: 16px; }
-.gallery-item-inner svg { width: 28px; height: 28px; margin: 0 auto 6px; }
-.gallery-item-inner span { font-size: 0.7rem; font-weight: 500; }
-
-/* ===================== INSTAGRAM ===================== */
-.instagram { background: var(--white); }
-.instagram-header { text-align: center; margin-bottom: 36px; }
-.instagram-embed {
-  max-width: 500px; margin: 0 auto; border-radius: var(--radius); overflow: hidden;
-  box-shadow: var(--shadow); background: var(--white);
-}
-.instagram-embed iframe { width: 100%; height: 500px; border: none; }
-
-/* ===================== TEAM ===================== */
-.team { background: var(--cream); }
-.team-header { text-align: center; margin-bottom: 44px; }
-.team-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
-.team-card {
-  background: var(--white); border-radius: var(--radius); padding: 24px 16px;
-  text-align: center; transition: var(--transition); position: relative; overflow: hidden;
-}
-.team-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--teal), var(--gold));
-  transform: scaleX(0); transition: var(--transition); transform-origin: left;
-}
-.team-card:hover::before { transform: scaleX(1); }
-.team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.team-avatar {
-  width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem; font-weight: 700; color: var(--white);
-  overflow: hidden;
-}
-.team-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.team-card:nth-child(1) .team-avatar,
-.team-card:nth-child(2) .team-avatar { background: linear-gradient(135deg, var(--teal), var(--blue)); }
-.team-card:nth-child(3) .team-avatar,
-.team-card:nth-child(4) .team-avatar { background: linear-gradient(135deg, var(--gold), #e5a41c); }
-.team-card:nth-child(5) .team-avatar,
-.team-card:nth-child(6) .team-avatar { background: linear-gradient(135deg, var(--pink), #b51e4c); }
-.team-card:nth-child(7) .team-avatar,
-.team-card:nth-child(8) .team-avatar { background: linear-gradient(135deg, var(--navy), var(--teal)); }
-.team-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; }
-.team-role { font-size: 0.72rem; color: #5a7a8a; margin-bottom: 4px; }
-.team-email { font-size: 0.68rem; color: var(--teal); margin-bottom: 8px; display: block; }
-.team-email:hover { color: var(--navy); }
-.team-linkedin {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-size: 0.72rem; color: var(--teal); font-weight: 500; transition: var(--transition);
-}
-.team-linkedin:hover { color: var(--navy); }
-.team-linkedin svg { width: 14px; height: 14px; }
-
-/* ===================== CALENDAR ===================== */
-.calendar { background: var(--white); }
-.calendar-header { text-align: center; margin-bottom: 36px; }
-.calendar-embed {
-  max-width: 800px; margin: 0 auto; border-radius: var(--radius); overflow: hidden;
-  box-shadow: var(--shadow); background: var(--white);
-}
-.calendar-embed iframe { width: 100%; height: 520px; border: none; }
-
-/* ===================== PARTNERS ===================== */
-.partners { background: var(--cream); }
-.partners-header { text-align: center; margin-bottom: 44px; }
-.partners-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-  max-width: 800px; margin: 0 auto;
-}
-.partner-slot {
-  aspect-ratio: 2/1; background: var(--white); border-radius: var(--radius);
-  display: flex; align-items: center; justify-content: center; padding: 16px;
-  border: 1px solid rgba(4, 64, 85, 0.06); transition: var(--transition);
-}
-.partner-slot:hover { box-shadow: var(--shadow); }
-.partner-slot img { max-height: 48px; max-width: 100%; object-fit: contain; }
-.partners-cta { text-align: center; margin-top: 36px; }
-
-/* ===================== DONATE ===================== */
-.donate {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 50%, var(--teal) 100%);
-  color: var(--white); position: relative; overflow: hidden;
-}
-.donate-bg {
-  position: absolute; inset: 0; opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-.donate-inner {
-  position: relative; z-index: 2; text-align: center; max-width: 600px; margin: 0 auto;
-}
-.donate .section-label { color: var(--gold); }
-.donate .section-label::before { background: var(--gold); }
-.donate .section-title { color: var(--white); }
-.donate p { color: rgba(255,255,255,0.8); font-size: 0.92rem; line-height: 1.7; margin-bottom: 28px; }
-.donate-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 50px;
-  font-size: 0.72rem; font-weight: 500; margin-top: 20px; color: rgba(255,255,255,0.7);
-}
-.donate-badge svg { width: 14px; height: 14px; }
-
-/* ===================== CONTACT ===================== */
-.contact { background: var(--white); }
-.contact-inner {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
-}
-.contact-info h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 12px; margin-top: 20px; }
-.contact-info h3:first-child { margin-top: 0; }
-.contact-link {
-  display: flex; align-items: center; gap: 10px; padding: 8px 0;
-  font-size: 0.85rem; color: var(--navy); transition: var(--transition);
-}
-.contact-link:hover { color: var(--teal); }
-.contact-link svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--teal); }
-.contact-card {
-  background: linear-gradient(135deg, var(--teal), var(--blue));
-  border-radius: var(--radius); padding: 32px; color: var(--white);
-}
-.contact-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
-.contact-card p { font-size: 0.88rem; opacity: 0.9; line-height: 1.7; margin-bottom: 20px; }
-.contact-card .btn { background: var(--white); color: var(--teal); }
-.contact-card .btn:hover { background: var(--cream); }
-
-/* ===================== FOOTER ===================== */
-.footer {
-  background: var(--navy); color: rgba(255,255,255,0.6); padding: 48px 0 24px;
-}
-.footer-inner {
-  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px;
-}
-.footer-brand p { font-size: 0.78rem; line-height: 1.7; margin-top: 12px; max-width: 300px; }
-.footer h4 {
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.4); margin-bottom: 16px;
-}
-.footer-links { list-style: none; }
-.footer-links li { margin-bottom: 8px; }
-.footer-links a { font-size: 0.82rem; transition: var(--transition); }
-.footer-links a:hover { color: var(--gold); }
-.footer-social { display: flex; gap: 12px; margin-top: 16px; }
-.footer-social a {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center;
-  transition: var(--transition);
-}
-.footer-social a:hover { background: var(--teal); }
-.footer-social svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.7); }
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.08);
-  margin-top: 36px; padding-top: 20px; text-align: center;
-  font-size: 0.72rem;
-}
-.footer-logo { display: flex; align-items: center; gap: 8px; }
-.footer-logo img { height: 28px; width: auto; filter: brightness(0) invert(1); opacity: 0.6; }
-.footer-logo span { font-weight: 700; font-size: 1rem; color: var(--white); }
-
-/* ===================== FLOATING CONTACT ===================== */
-.floating-contact {
-  position: fixed; bottom: 24px; right: 24px; z-index: 999;
-  background: var(--teal); color: var(--white); border: none; cursor: pointer;
-  width: 52px; height: 52px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 20px rgba(10,145,147,0.4); transition: var(--transition);
-}
-.floating-contact:hover {
-  background: var(--navy); transform: scale(1.1);
-  box-shadow: 0 6px 28px rgba(4,64,85,0.4);
-}
-.floating-contact svg { width: 22px; height: 22px; }
-
-/* ===================== RESPONSIVE ===================== */
-@media (max-width: 1024px) {
-  .hero-inner { grid-template-columns: 1fr; text-align: center; }
-  .hero-content p { margin: 0 auto 28px; }
-  .hero-content h1 { max-width: 100%; }
-  .hero-actions { justify-content: center; }
-  .hero-stats { justify-content: center; }
-  .hero-visual { margin-top: 20px; }
-  .hero-logo-img { width: 220px; }
-  .about-grid { grid-template-columns: 1fr; gap: 32px; }
-  .team-grid { grid-template-columns: repeat(2, 1fr); }
-  .contact-inner { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr; gap: 24px; }
-}
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .nav-cta { display: none; }
-  .mobile-toggle { display: block; }
-  .mobile-menu {
-    display: none; position: fixed; top: 56px; left: 0; right: 0;
-    background: var(--cream); padding: 20px; z-index: 999;
-    box-shadow: var(--shadow-lg);
-  }
-  .mobile-menu.active { display: block; }
-  .mobile-menu a {
-    display: block; padding: 12px 0; font-size: 0.9rem; font-weight: 500;
-    color: var(--navy); border-bottom: 1px solid rgba(4,64,85,0.06);
-  }
-  .mobile-menu .btn { margin-top: 12px; width: 100%; justify-content: center; }
-  .section { padding: 48px 0; }
-  .gallery-placeholder { grid-template-columns: repeat(2, 1fr); }
-  .gallery-item:nth-child(1) { grid-column: span 2; }
-  .team-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .partners-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 480px) {
-  .hero-stats { flex-direction: column; gap: 12px; align-items: center; }
-  .gallery-placeholder { grid-template-columns: 1fr; }
-  .gallery-item:nth-child(1) { grid-column: span 1; grid-row: span 1; }
-  .team-grid { grid-template-columns: 1fr; }
-}
-</style>
+<meta name="description" content="SLCCE mobilizes university students to deliver free CSC and ECE workshops to under-resourced middle and high schoolers.">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-<!-- ============ NAVBAR ============ -->
-<nav class="navbar" id="navbar">
-  <div class="navbar-inner">
-    <a href="#" class="navbar-logo">
-      <img src="assets/logo_icon.png" alt="SLCCE Logo">
-      <span>SLCCE</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#events">Events</a></li>
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#team">Team</a></li>
-      <li><a href="#calendar">Calendar</a></li>
-      <li><a href="#partners">Partners</a></li>
-      <li><a href="https://www.instagram.com/slcce_ncsu/" target="_blank" rel="noopener">Instagram</a></li>
-    </ul>
-    <div class="nav-cta">
-      <a href="#donate" class="btn btn-outline" style="padding:8px 18px;font-size:0.78rem;">Donate</a>
-      <a href="#contact" class="btn btn-primary" style="padding:8px 18px;font-size:0.78rem;">Get in Touch</a>
-    </div>
-    <button class="mobile-toggle" onclick="document.getElementById('mobileMenu').classList.toggle('active')">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-    </button>
+<header class="site-header">
+  <a href="index.html" class="site-logo"><img src="assets/icon.svg" alt="SLCCE"><span>SLCCE</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="for-teachers.html">For Teachers</a></li>
+    <li><a href="for-schools.html">For Schools</a></li>
+    <li><a href="for-universities.html">For Universities</a></li>
+    <li><a href="for-donors.html">For Donors</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="contact.html" class="btn btn-ghost btn-sm">Contact</a>
+    <a href="donate.html" class="btn btn-secondary btn-sm">Donate</a>
   </div>
-</nav>
+  <button class="mobile-toggle" onclick="document.getElementById('mobileMenu').classList.toggle('active')">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="for-teachers.html">For Teachers</a>
+  <a href="for-schools.html">For Schools</a><a href="for-universities.html">For Universities</a><a href="for-donors.html">For Donors</a>
+  <a href="contact.html" class="btn btn-outline">Contact</a><a href="donate.html" class="btn btn-secondary">Donate</a>
+</div>
 
-<!-- ============ HERO ============ -->
-<section class="hero" id="hero">
-  <div class="hero-bg-shape"></div>
-  <div class="hero-bg-shape-2"></div>
-  <div class="container hero-inner">
-    <div class="hero-content">
-      <div class="section-label">501(c)(3) Nonprofit</div>
-      <h1>Empowering the Next Generation Through <span class="highlight">Computing Education</span></h1>
-      <p>SLCCE connects university students with under-resourced high school communities across North Carolina, delivering hands-on workshops in electrical engineering, computer engineering, and computer science.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">
-          Get in Touch
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
-        <a href="#about" class="btn btn-outline">Learn More</a>
-      </div>
-      <div class="hero-stats">
-        <div>
-          <div class="hero-stat-number">350+</div>
-          <div class="hero-stat-label">Students Reached</div>
-        </div>
-        <div>
-          <div class="hero-stat-number">4</div>
-          <div class="hero-stat-label">Workshops Held</div>
-        </div>
-        <div>
-          <div class="hero-stat-number">10</div>
-          <div class="hero-stat-label">E-Board Members</div>
-        </div>
-        <div>
-          <div class="hero-stat-number">70</div>
-          <div class="hero-stat-label">NCSU Student Members</div>
-        </div>
+<section class="home-hero">
+  <div class="inner">
+    <div class="eyebrow">501(c)(3) Nonprofit</div>
+    <h1>Every student deserves a seat at the table in STEM.</h1>
+    <p>Students Leading Collaborative Computing Education (SLCCE) mobilizes university students to deliver free Computer Science and Electrical &amp; Computer Engineering workshops to under-resourced middle and high schoolers, closing the opportunity gap one classroom at a time.</p>
+    <div class="actions">
+      <a href="donate.html" class="btn btn-secondary">Donate</a>
+      <a href="for-universities.html" class="btn btn-outline-inverse">Found a Chapter</a>
+    </div>
+  </div>
+  <img class="deco" src="assets/icon-white.svg" alt="">
+</section>
+
+<section class="bridge-section">
+  <div class="bridge-heading">
+    <h2>How We Bridge the Gap</h2>
+    <p>One mission, several ways to get involved.</p>
+  </div>
+
+  <div class="section-row">
+    <div class="row-text">
+      <div class="eyebrow">Our Mission</div>
+      <h3>About SLCCE</h3>
+      <p>A student-led nonprofit bringing free, hands-on CSC &amp; ECE education to classrooms that would otherwise go without it, and building toward a future where every student has that access.</p>
+      <div class="row-actions">
+        <a href="about.html" class="btn btn-ghost btn-sm">Learn about us →</a>
+        <a href="strategic-plan.html" class="ext-link">Read our five-year plan</a>
       </div>
     </div>
-    <div class="hero-visual">
-      <img class="hero-logo-img" src="assets/logo_full.png" alt="SLCCE Circuit Tree Logo">
+    <div class="row-image"><img src="images/group_shot.jpeg" alt="SLCCE volunteer group"></div>
+  </div>
+
+  <div class="section-row reverse">
+    <div class="row-text">
+      <div class="eyebrow">Educators</div>
+      <h3>For Teachers</h3>
+      <p>Schedule a free workshop with our NC State chapter, or bring our open-source CSC &amp; ECE materials into your own lesson plans, no cost, no setup required.</p>
+      <div class="row-actions">
+        <a href="for-teachers.html" class="btn btn-ghost btn-sm">Partner with us →</a>
+        <a href="https://ece.slcce-inc.org" target="_blank" rel="noopener noreferrer" class="ext-link">Open-source materials<span> ↗</span></a>
+        <a href="mailto:studentsleadingcce-org@ncsu.edu" class="ext-link">Schedule a workshop<span> ↗</span></a>
+      </div>
     </div>
+    <div class="row-image"><img src="images/stock-teacher.jpg" alt="Teacher in classroom"></div>
+  </div>
+
+  <div class="section-row">
+    <div class="row-text">
+      <div class="eyebrow">Administrators</div>
+      <h3>For Schools</h3>
+      <p>Partner your school or district with our NC State chapter for a semester of workshops, free, at no setup cost, with benefits for students, staff, and the community.</p>
+      <div class="row-actions">
+        <a href="for-schools.html" class="btn btn-ghost btn-sm">Host a workshop series →</a>
+        <a href="mailto:studentsleadingcce-org@ncsu.edu" class="ext-link">Schedule a workshop<span> ↗</span></a>
+        <a href="mailto:contact@slcce-inc.org" class="ext-link">contact@slcce-inc.org<span> ↗</span></a>
+      </div>
+    </div>
+    <div class="row-image"><img src="images/stock-school.jpg" alt="School administrator"></div>
+  </div>
+
+  <div class="section-row reverse">
+    <div class="row-text">
+      <div class="eyebrow">Higher Ed</div>
+      <h3>For Universities</h3>
+      <p>Help your engineering and education students found the next SLCCE chapter, leading real workshops, gaining leadership experience, and giving back to their community.</p>
+      <div class="row-actions">
+        <a href="for-universities.html" class="btn btn-ghost btn-sm">Start a chapter →</a>
+        <a href="mailto:contact@slcce-inc.org" class="ext-link">contact@slcce-inc.org<span> ↗</span></a>
+      </div>
+    </div>
+    <div class="row-image"><img src="images/stock-donors.jpg" alt="Volunteer handshake"></div>
+  </div>
+
+  <div class="section-row" style="border-bottom:none;">
+    <div class="row-text">
+      <div class="eyebrow">Support</div>
+      <h3>For Donors</h3>
+      <p>Your gift funds the materials, training, and travel behind every workshop we deliver, and helps us reach more classrooms next year than we did this one.</p>
+      <div class="row-actions">
+        <a href="for-donors.html" class="btn btn-ghost btn-sm">See your impact →</a>
+      </div>
+    </div>
+    <div class="row-image"><img src="images/stock-university.jpg" alt="University campus"></div>
   </div>
 </section>
 
-<!-- ============ ABOUT ============ -->
-<section class="section about" id="about">
-  <div class="container about-grid">
-    <div>
-      <div class="section-label">Who We Are</div>
-      <h2 class="section-title">Students Leading Collaborative Computing Education</h2>
-      <p class="section-subtitle" style="margin-bottom:18px;">SLCCE Inc. is a registered 501(c)(3) organization that provides electrical and computer engineering and computer science education to under-resourced high school students across North Carolina.</p>
-      <p style="font-size:0.88rem;color:#5a7a8a;line-height:1.8;margin-bottom:12px;">We also provide professional development and entrepreneurial opportunities for current university students, ensuring that individuals from various backgrounds are supported throughout their schooling.</p>
-      <p style="font-size:0.88rem;color:#5a7a8a;line-height:1.8;">Our model connects both communities. University students develop workshops that are taught to under-resourced high school students, allowing university students to develop their professional portfolios, and high school students to receive mentorship and hands-on computing education that may otherwise remain inaccessible.</p>
-    </div>
-    <div class="about-cards">
-      <div class="about-card">
-        <div class="about-card-icon" style="background:rgba(10,145,147,0.1);color:var(--teal);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-        </div>
-        <h3>Hands-On Workshops</h3>
-        <p>University students develop and teach computing workshops to high school students, covering circuit design to software development.</p>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon" style="background:rgba(253,182,32,0.1);color:var(--gold);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-        </div>
-        <h3>Mentorship &amp; Community</h3>
-        <p>Bridging the gap between university and high school communities with lasting mentorship and support networks.</p>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon" style="background:rgba(207,35,88,0.1);color:var(--pink);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        </div>
-        <h3>Professional Growth</h3>
-        <p>Volunteers develop leadership, teaching, and technical skills while building professional portfolios.</p>
-      </div>
-    </div>
+<section class="values-section">
+  <div class="value-pills">
+    <span class="value-pill">Authenticity</span>
+    <span class="value-pill">Dedication</span>
+    <span class="value-pill">Wonder</span>
   </div>
 </section>
 
-<!-- ============ EVENTS ============ -->
-<section class="section events" id="events">
-  <div class="container">
-    <div class="events-header">
-      <div class="section-label">Our Impact</div>
-      <h2 class="section-title">Previous Events</h2>
-      <p class="section-subtitle">Every workshop brings computing education to students who need it most.</p>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/logo-white.svg" alt="SLCCE">
+      <p>Bridging the gap in STEM education for under-resourced middle and high school students nationwide.</p>
     </div>
-    <div class="events-timeline">
-      <div class="event-item">
-        <div class="event-dot"></div>
-        <div class="event-card">
-          <div class="event-date">January 2026</div>
-          <h3>SLCCE &times; NCBCE</h3>
-          <div class="event-students">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            40 students
-          </div>
-        </div>
-      </div>
-      <div class="event-item">
-        <div class="event-dot"></div>
-        <div class="event-card">
-          <div class="event-date">November 2025</div>
-          <h3>SLCCE &times; MSEN</h3>
-          <div class="event-students">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            80 students
-          </div>
-        </div>
-      </div>
-      <div class="event-item">
-        <div class="event-dot"></div>
-        <div class="event-card">
-          <div class="event-date">April 2025</div>
-          <h3>SLCCE &times; Reach for the STARS</h3>
-          <div class="event-students">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            100 students
-          </div>
-        </div>
-      </div>
-      <div class="event-item">
-        <div class="event-dot"></div>
-        <div class="event-card">
-          <div class="event-date">March 2025</div>
-          <h3>SLCCE &times; Trinity Christian School</h3>
-          <div class="event-students">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            60 students
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ GALLERY ============ -->
-<section class="section gallery" id="gallery">
-  <div class="container">
-    <div class="gallery-header">
-      <div class="section-label">In Action</div>
-      <h2 class="section-title">Gallery</h2>
-      <p class="section-subtitle" style="margin:0 auto;">Photos from our workshops and events.</p>
-    </div>
-    <div class="gallery-placeholder">
-      <div class="gallery-item">
-          <img src="images/group_shot.jpeg" alt="Volunteer Group Photo">
-      </div>
-      <div class="gallery-item"><img src="images/trinity_1.png" alt="Trinity Event Photo"></div>
-      <div class="gallery-item"><img src="images/trinity_2.png" alt="Trinity Event Photo"></div>
-      <div class="gallery-item"><img src="images/msen_1.png" alt="Trinity Event Photo"></div>
-      <div class="gallery-item"><img src="images/msen_2.png" alt="Trinity Event Photo"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ========= INSTAGRAM ========== -->
-<section class="section instagram" id="instagram">
-  <div class="container">
-    <div class="instagram-header">
-      <div class="section-label">Community Highlights</div>
-      <h2 class="section-title">Instagram</h2>
-      <p class="section-subtitle" style="margin:0 auto;">Check our instagram for upcoming events and community insights.</p>
-    </div>
-    <div class="instagram-embed">
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/slcce_ncsu/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/slcce_ncsu/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this profile on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/slcce_ncsu/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px;" target="_blank">Students Leading Collaborative Computing Education</a> (@<a href="https://www.instagram.com/slcce_ncsu/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px;" target="_blank">slcce_ncsu</a>) • Instagram photos and videos</p></div></blockquote>
-<script async src="//www.instagram.com/embed.js"></script>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TEAM ============ -->
-<section class="section team" id="team">
-  <div class="container">
-    <div class="team-header">
-      <div class="section-label">NCSU Chapter</div>
-      <h2 class="section-title">Leadership</h2>
-      <p class="section-subtitle" style="margin:0 auto;">The student leaders driving SLCCE forward at NC State University.</p>
-    </div>
-    <div class="team-grid">
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/madison.jpeg" alt="Madison Thompson"></div>
-        <div class="team-name">Madison Thompson</div>
-        <div class="team-role">Co-President</div>
-        <a href="mailto:methompson@slcce-inc.org" class="team-email">methompson@slcce-inc.org</a>
-        <a href="https://www.linkedin.com/in/mthompson27/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/jonathan_headshot.jpeg" alt="Jonathan Rogers"></div>
-        <div class="team-name">Jonathan Rogers</div>
-        <div class="team-role">Co-President</div>
-        <a href="mailto:jlrogers@slcce-inc.org" class="team-email">jlrogers@slcce-inc.org</a>
-        <a href="https://www.linkedin.com/in/jonathan-l-rogers/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/aaron_headshot.jpeg" alt="Aaron Logan"></div>
-        <div class="team-name">Aaron Logan</div>
-        <div class="team-role">Vice President</div>
-        <a href="https://www.linkedin.com/in/aaronslogan/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/erich_headshot.jpeg" alt="Erich Bopp"></div>
-        <div class="team-name">Erich Bopp</div>
-        <div class="team-role">Vice President</div>
-        <a href="https://www.linkedin.com/in/erich-bopp/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/malayka_headshot.jpeg" alt="Malayka Robinson"></div>
-        <div class="team-name">Malayka Robinson</div>
-        <div class="team-role">ECE Chair</div>
-        <a href="https://www.linkedin.com/in/malayka-robinson/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/jason_headshot.jpeg" alt="Jason Yin"></div>
-        <div class="team-name">Jason Yin</div>
-        <div class="team-role">CSC Chair</div>
-        <a href="https://www.linkedin.com/in/jason-yin-0a8a9728a/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/shreeya_headshot.jpeg" alt="Shreeya Wadodker"></div>
-        <div class="team-name">Shreeya Wadodker</div>
-        <div class="team-role">Marketing Chair</div>
-        <a href="https://www.linkedin.com/in/shreeya-w/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/kareem_headshot.jpeg" alt="Kareem Ghanem"></div>
-        <div class="team-name">Kareem Ghanem</div>
-        <div class="team-role">Outreach Chair</div>
-        <a href="https://www.linkedin.com/in/kareem-ghanem1/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/IMG_1175.JPG" alt="Jenny Johnson"></div>
-        <div class="team-name">Jenny Johnson</div>
-        <div class="team-role">Secretary</div>
-        <a href="https://www.linkedin.com/in/jenny-johnson-83b97132a/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-      <div class="team-card">
-        <div class="team-avatar"><img src="images/IMG_1370.JPG" alt="Gabriel Chenevert"></div>
-        <div class="team-name">Gabriel Chenevert</div>
-        <div class="team-role">Graduate Student Advisor</div>
-        <a href="https://www.linkedin.com/in/gabriel-chenevert-46221a179/" target="_blank" rel="noopener" class="team-linkedin">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CALENDAR ============ -->
-<section class="section calendar" id="calendar">
-  <div class="container">
-    <div class="calendar-header">
-      <div class="section-label">Stay Updated</div>
-      <h2 class="section-title">Upcoming Events</h2>
-      <p class="section-subtitle" style="margin:0 auto;">Check our calendar for upcoming workshops and opportunities.</p>
-    </div>
-    <div class="calendar-embed">
-      <iframe src="https://calendar.google.com/calendar/embed?src=c_f16dcca3fadba7fcf4fb4a2e5690f31bee6639f1b68e683728e2270c5fa1764f%40group.calendar.google.com&ctz=America%2FNew_York" frameborder="0" scrolling="no"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PARTNERS ============ -->
-<section class="section partners" id="partners">
-  <div class="container">
-    <div class="partners-header">
-      <div class="section-label">Our Network</div>
-      <h2 class="section-title">Partners &amp; Sponsors</h2>
-      <p class="section-subtitle" style="margin:0 auto;">We're grateful for the organizations that help make our mission possible.</p>
-    </div>
-    <div class="partners-grid">
-      <div class="partner-slot">
-        <img src="assets/ncbce_logo.png" alt="NCBCE">
-      </div>
-      <div class="partner-slot">
-        <img src="assets/trinity_logo.png" alt="Trinity Christian School">
-      </div>
-      <div class="partner-slot">
-        <img src="assets/phase_dock_logo.png" alt="Phase Dock">
-      </div>
-      <div class="partner-slot">
-        <img src="assets/digikey_logo.png" alt="DigiKey">
-      </div>
-    </div>
-    <div class="partners-cta">
-      <p style="color:#5a7a8a;margin-bottom:16px;font-size:0.88rem;">Interested in partnering with SLCCE?</p>
-      <a href="mailto:contact@slcce-inc.org" class="btn btn-outline">Become a Partner</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ DONATE ============ -->
-<section class="section donate" id="donate">
-  <div class="donate-bg"></div>
-  <div class="container donate-inner">
-    <div class="section-label">Support Our Mission</div>
-    <h2 class="section-title">Help Us Reach More Students</h2>
-    <p>Your donation directly funds workshop materials, transportation, and resources that make computing education accessible to under-resourced high school students across North Carolina.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="mailto:contact@slcce-inc.org?subject=Donation%20Inquiry" class="btn btn-gold">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-        Donate Now
-      </a>
-    </div>
-    <div class="donate-badge">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-      501(c)(3) nonprofit &mdash; your donation is tax-deductible
-    </div>
-  </div>
-</section>
-
-<!-- ============ CONTACT ============ -->
-<section class="section contact" id="contact">
-  <div class="container">
-    <div class="section-label">Get in Touch</div>
-    <h2 class="section-title">Let's Connect</h2>
-    <div class="contact-inner" style="margin-top:32px;">
-      <div class="contact-info">
-        <h3>General Inquiries</h3>
-        <a href="mailto:contact@slcce-inc.org" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          contact@slcce-inc.org
-        </a>
-        <h3>Partnerships &amp; Inquiries</h3>
-        <a href="mailto:methompson@slcce-inc.org" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-          Madison Thompson &mdash; methompson@slcce-inc.org
-        </a>
-        <a href="mailto:jlrogers@slcce-inc.org" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-          Jonathan Rogers &mdash; jlrogers@slcce-inc.org
-        </a>
-        <h3>Follow Us</h3>
-        <a href="https://www.instagram.com/slcce_ncsu/" target="_blank" rel="noopener" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="var(--teal)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          @slcce_ncsu
-        </a>
-      </div>
-      <div class="contact-card">
-        <h3>Want to Partner with SLCCE?</h3>
-        <p>Whether you're a school, organization, or company, we'd love to explore how we can work together to bring computing education to more students.</p>
-        <a href="mailto:contact@slcce-inc.org?subject=Partnership%20Inquiry" class="btn">
-          Send Us a Message
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo">
-          <img src="assets/logo_icon.png" alt="SLCCE">
-          <span>SLCCE</span>
-        </div>
-        <p>Students Leading Collaborative Computing Education Inc. is a registered 501(c)(3) providing computing education to under-resourced students across North Carolina.</p>
-        <div class="footer-social">
-          <a href="https://www.instagram.com/slcce_ncsu/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          </a>
-        </div>
-      </div>
-      <div>
-        <h4>Quick Links</h4>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Get Involved</h4>
         <ul class="footer-links">
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#events">Past Events</a></li>
-          <li><a href="#team">Our Team</a></li>
-          <li><a href="#calendar">Calendar</a></li>
-          <li><a href="#donate">Donate</a></li>
+          <li><a href="for-teachers.html">For Teachers</a></li>
+          <li><a href="for-schools.html">For Schools</a></li>
+          <li><a href="for-universities.html">For Universities</a></li>
+          <li><a href="for-donors.html">For Donors</a></li>
         </ul>
       </div>
-      <div>
-        <h4>Contact</h4>
+      <div class="footer-col">
+        <h4>Organization</h4>
         <ul class="footer-links">
-          <li><a href="mailto:contact@slcce-inc.org">contact@slcce-inc.org</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="donate.html">Donate</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      &copy; 2026 SLCCE Inc. All rights reserved. &nbsp;|&nbsp; 501(c)(3) Nonprofit Organization
-    </div>
   </div>
+  <div class="footer-bottom">© 2026 Students Leading Collaborative Computing Education. 501(c)(3) nonprofit.</div>
 </footer>
-
-<!-- ============ FLOATING CONTACT BUTTON ============ -->
-<a href="#contact" class="floating-contact" aria-label="Get in Touch">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-</a>
-
 </body>
 </html>
