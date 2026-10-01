@@ -1,0 +1,17 @@
+{%- comment -%}
+  Sets author_name, author_role, author_image for include.post (default: page).
+  `author` may be an id in _data/authors.yml or a plain name.
+{%- endcomment -%}
+{%- assign _p = include.post | default: page -%}
+{%- assign _a = site.data.authors[_p.author] -%}
+{%- if _a -%}
+  {%- assign author_name = _a.name -%}
+  {%- assign author_role = _a.role -%}
+  {%- assign author_image = _a.image -%}
+  {%- assign author_type = _a.type -%}
+{%- else -%}
+  {%- assign author_type = nil -%}
+  {%- assign author_name = _p.author -%}
+  {%- assign author_role = _p.author_role -%}
+  {%- assign author_image = _p.author_image -%}
+{%- endif -%}

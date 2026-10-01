@@ -1,0 +1,45 @@
+# Jekyll config. GitHub Pages builds this site with Jekyll automatically.
+# Only files with front matter (the News section, sitemap.xml) are processed;
+# every other .html page is copied through unchanged.
+title: SLCCE
+description: Students Leading Collaborative Computing Education
+url: https://www.slcce-inc.org
+baseurl: ""
+markdown: kramdown
+# No theme: the site has its own CSS. Stops GitHub Pages from adding the default Primer theme files.
+theme: null
+timezone: America/New_York
+
+permalink: /news/:year/:title/
+
+plugins:
+  - jekyll-feed
+
+feed:
+  path: news/feed.xml
+
+# Human-readable labels and listing URLs for each news type.
+# A post's `layout` front matter must be one of these keys.
+news_types:
+  press-release:
+    label: Press Release
+    plural: Press Releases
+    url: /news/press-releases/
+  announcement:
+    label: Announcement
+    plural: Announcements
+    url: /news/announcements/
+  update:
+    label: Update
+    plural: Updates
+    url: /news/updates/
+  story:
+    label: Story
+    plural: Stories
+    url: /news/stories/
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

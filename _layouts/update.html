@@ -1,0 +1,9 @@
+---
+layout: news-post
+---
+<article class="article-body update">
+  {%- if page.chapter %}
+  <p class="update-chapter">{{ page.chapter }}</p>
+  {%- endif %}
+  {{ content }}
+</article>
