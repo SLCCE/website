@@ -1,0 +1,24 @@
+{%- comment -%}
+  Renders a grid of post cards, newest first.
+  Params: type  (optional) a key of site.news_types; omit for all posts
+          limit (optional) max number of posts to show
+          exclude (optional) url of a post to leave out
+{%- endcomment -%}
+{%- if include.type -%}
+  {%- assign posts = site.posts | where: "layout", include.type -%}
+{%- else -%}
+  {%- assign posts = site.posts -%}
+{%- endif -%}
+{%- if include.exclude -%}
+  {%- assign posts = posts | where_exp: "p", "p.url != include.exclude" -%}
+{%- endif -%}
+{%- assign max = include.limit | default: 1000 -%}
+{%- if posts.size > 0 %}
+<div class="news-grid">
+  {%- for post in posts limit: max %}
+  {% include news-card.html post=post %}
+  {%- endfor %}
+</div>
+{%- else %}
+<p class="news-empty">No {% if include.type %}{{ site.news_types[include.type].plural | downcase }}{% else %}news{% endif %} yet. Check back soon.</p>
+{%- endif %}

@@ -1,0 +1,36 @@
+---
+layout: default
+---
+{%- comment -%}
+  Shared shell for every news post. Type-specific layouts (press-release,
+  announcement, update, story) use this as their parent.
+{%- endcomment -%}
+{%- assign t = site.news_types[page.layout] -%}
+{%- include resolve-author.html -%}
+<section class="page-hero news-hero">
+  <div class="inner">
+    <div class="eyebrow"><a href="{{ t.url }}">{{ t.label }}</a></div>
+    <h1>{{ page.title }}</h1>
+    {%- if page.subtitle %}
+    <p>{{ page.subtitle }}</p>
+    {%- endif %}
+    <div class="byline">
+      {%- if author_image %}<img src="{{ author_image }}" alt="" class="byline-avatar">{% endif %}
+      <span>
+        {%- if author_name %}By {{ author_name }}{% if author_role %}, {{ author_role }}{% endif %} · {% endif -%}
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      </span>
+    </div>
+  </div>
+</section>
+
+{{ content }}
+
+<section class="inner-section news-more">
+  <a href="/news/index.html" class="btn btn-ghost btn-sm">← All news</a>
+  {%- assign others = site.posts | where: "layout", page.layout | where_exp: "p", "p.url != page.url" -%}
+  {%- if others.size > 0 %}
+  <h2>More {{ t.plural | downcase }}</h2>
+  {% include news-list.html type=page.layout exclude=page.url limit=3 %}
+  {%- endif %}
+</section>

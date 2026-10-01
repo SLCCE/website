@@ -1,0 +1,23 @@
+---
+layout: news-post
+---
+<article class="article-body announcement">
+  {%- if page.event_date or page.location or page.cta_url %}
+  <aside class="announce-box">
+    {%- if page.event_date or page.location %}
+    <dl>
+      {%- if page.event_date %}
+      <div><dt>When</dt><dd>{{ page.event_date }}</dd></div>
+      {%- endif %}
+      {%- if page.location %}
+      <div><dt>Where</dt><dd>{{ page.location }}</dd></div>
+      {%- endif %}
+    </dl>
+    {%- endif %}
+    {%- if page.cta_url %}
+    <a href="{{ page.cta_url }}" class="btn btn-primary"{% if page.cta_url contains "://" %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ page.cta_text | default: "Learn more" }}</a>
+    {%- endif %}
+  </aside>
+  {%- endif %}
+  {{ content }}
+</article>

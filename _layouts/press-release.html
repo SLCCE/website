@@ -1,0 +1,21 @@
+---
+layout: news-post
+---
+{%- capture dateline_p -%}<p><strong class="press-dateline">{% if page.dateline %}{{ page.dateline | upcase }} — {% endif %}{{ page.date | date: "%B %-d, %Y" }} —</strong> {% endcapture -%}
+<article class="article-body press-release">
+  <p class="press-label">For Immediate Release</p>
+  {{ content | replace_first: "<p>", dateline_p }}
+  {% include press-boilerplate.html %}
+  {%- if page.media_contact %}
+  {%- assign mc = page.media_contact %}
+  <section class="media-contact">
+    <h2>Media Contact</h2>
+    <p>
+      {%- if mc.name %}<strong>{{ mc.name }}</strong>{% if mc.title %}, {{ mc.title }}{% endif %}<br>{% endif %}
+      {%- if mc.email %}<a href="mailto:{{ mc.email }}">{{ mc.email }}</a><br>{% endif %}
+      {%- if mc.phone %}<a href="tel:{{ mc.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.' }}">{{ mc.phone }}</a>{% endif %}
+    </p>
+  </section>
+  {%- endif %}
+  <p class="press-end" aria-hidden="true">###</p>
+</article>

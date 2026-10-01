@@ -1,0 +1,6 @@
+<nav class="news-filters" aria-label="Filter news by type">
+  <a href="/news/index.html"{% unless include.active %} class="active" aria-current="page"{% endunless %}>All</a>
+  {%- for t in site.news_types %}
+  <a href="{{ t[1].url }}"{% if include.active == t[0] %} class="active" aria-current="page"{% endif %}>{{ t[1].plural }}</a>
+  {%- endfor %}
+</nav>

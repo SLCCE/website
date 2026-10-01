@@ -1,0 +1,22 @@
+---
+layout: news-post
+---
+<article class="article-body story">
+  {%- if page.image %}
+  <figure class="story-hero-img">
+    <img src="{{ page.image }}" alt="{{ page.image_alt | default: '' | escape }}">
+    {%- if page.image_caption %}<figcaption>{{ page.image_caption }}</figcaption>{% endif %}
+  </figure>
+  {%- endif %}
+  {{ content }}
+  {%- if page.gallery %}
+  <section class="story-gallery">
+    <h2>Photos</h2>
+    <div class="photo-row">
+      {%- for photo in page.gallery %}
+      <div class="photo-item"><img src="{{ photo.src }}" alt="{{ photo.alt | default: '' | escape }}" loading="lazy"></div>
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+</article>

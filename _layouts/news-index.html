@@ -1,0 +1,20 @@
+---
+layout: default
+---
+{%- comment -%}
+  Listing page for /news/ and the per-type pages. Set `news_filter` in the
+  page's front matter to a key of site.news_types, or leave it out for all posts.
+{%- endcomment -%}
+<section class="page-hero">
+  <div class="inner">
+    <div class="eyebrow">News</div>
+    <h1>{{ page.heading | default: page.title }}</h1>
+    <p>{{ page.description }}</p>
+  </div>
+</section>
+
+<section class="inner-section inner-wide news-index">
+  {% include news-filters.html active=page.news_filter %}
+  {% include news-list.html type=page.news_filter %}
+  <p class="news-feed-link"><a href="/news/feed.xml">Subscribe via RSS</a></p>
+</section>

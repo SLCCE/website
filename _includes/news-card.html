@@ -1,0 +1,13 @@
+{%- assign post = include.post -%}
+<article class="card news-card">
+  {%- if post.image %}
+  <a href="{{ post.url }}" class="news-card-img"><img src="{{ post.image }}" alt="{{ post.image_alt | default: '' | escape }}" loading="lazy"></a>
+  {%- endif %}
+  <div class="news-card-meta">
+    {% include type-badge.html type=post.layout %}
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+  </div>
+  <h3 class="title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+  <p class="desc">{% if post.description %}{{ post.description }}{% else %}{{ post.excerpt | strip_html | normalize_whitespace | truncate: 180 }}{% endif %}</p>
+  <a href="{{ post.url }}" class="btn btn-ghost btn-sm news-card-more">Read more →</a>
+</article>

@@ -1,0 +1,26 @@
+# News authors. A post sets `author: <id>` (for example `author: slcce`) to use
+# an entry below. All fields except `name` are optional.
+#
+#   name:  Display name in the byline
+#   role:  Shown after the name, e.g. "Co-President, SLCCE"
+#   image: Byline icon, path from the site root. Square photos work best.
+#          SVG logos are padded to fit the circle instead of being cropped.
+#   type:  "Organization" for non-people (default "Person"); used for search engines.
+#
+# A post can also set `author: "Any Name"` with no entry here. It then uses
+# the post's own `author_role` and `author_image` fields.
+
+slcce:
+  name: SLCCE Communications
+  type: Organization
+  image: /assets/icon-white.svg
+
+jonathan-rogers:
+  name: Jonathan Rogers
+  role: Co-President, SLCCE at NC State
+  image: /images/jonathan_headshot.jpeg
+
+madison-thompson:
+  name: Madison Thompson
+  role: Co-President, SLCCE at NC State
+  image: /images/madison.jpeg
